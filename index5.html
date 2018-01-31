@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>websocket</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <input type="file" value="选择图片" id="file" accept="image/*"/>
+    <button onclick="upload()">上传图片</button>
+    <script>
+      var websocket = new WebSocket('wss://echo.websocket.org');
+      function upload() {
+        var file = document.getElementById('file').files[0];
+        console.log(file)
+        websocket.send(file);
+      }
+      websocket.onmessage = function(e) {
+        console.log(e.data);
+      }
+    </script>
+  </body>
+</html>

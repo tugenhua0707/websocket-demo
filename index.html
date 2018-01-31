@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>websocket</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <script>
+      var websocket = new WebSocket('wss://echo.websocket.org');
+      websocket.onopen = function(e) {
+        console.log('Connection open ...');
+        websocket.send("Hello WebSocket!");
+      }
+      websocket.onmessage = function(e) {
+        console.log('Received Message: ' + e.data);
+        websocket.close();
+      }
+      websocket.onclose = function(e) {
+        console.log('Connection closed.');
+      }
+    </script>
+  </body>
+</html>

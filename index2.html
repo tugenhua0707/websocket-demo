@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>websocket</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <h1>WebSocket客户端demo</h1>
+    <div id="message"></div>
+    <p>请输入一些文字</p>
+    <input type="text" id="text" />
+    <button id="connect" onclick="connect()">建立连接</button>
+    <button id="send" onclick="send()">发送数据</button>
+    <button id="disconnect" onclick="disconnect()">断开连接</button>
+    <script>
+      var websocket;
+      function connect() {
+        var msg = document.getElementById('message');
+        try {
+          var readyState = new Array("正在连接", "已建立连接", "正在关闭连接", "已关闭连接");
+          var url = "wss://echo.websocket.org";
+          websocket = new WebSocket(url);
+          msg.innerHTML +="<p>Socket状态为:"+readyState[websocket.readyState]+"</p>";
+          websocket.onopen = function() {
+            msg.innerHTML += "<p>Socket状态为"+readyState[websocket.readyState]+"</p>"
+          }
+          websocket.onmessage = function(msg) {
+            msg.innerHTML += "<p>接收信息："+msg.data+"</p>";
+          }
+          websocket.onclose = function() {
+            msg.innerHTML += "<p>Socket状态为:"+readyState[websocket.readyState]+"</p>"
+          }
+        } catch(e) {
+          msg.innerHTML += "<p>发生异常了</p>";
+        }
+      }
+      function send() {
+        var text = document.getElementById('text').value;
+        var msg = document.getElementById('message');
+        if (text == "") {
+          msg.innerHTML += "<p>请输入一些文字</p>";
+          return;
+        }
+        try {
+          websocket.send(text);
+          msg.innerHTML += "<p>发送数据:"+text+"</p>";
+        } catch(e) {
+          msg.innerHTML += "<p>发送数据异常了</p>";
+        }
+        document.getElementById('text').value = '';
+      }
+      function disconnect() {
+        websocket.close();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>websocket</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <script>
+      var websocket = new WebSocket('wss://echo.websocket.org');
+      websocket.onopen = function(e) {
+        console.log('Connection open ...');
+        // 发送二进制对象
+        var buffer = new ArrayBuffer(128);
+        websocket.send(buffer);
+
+        var intview = new Uint32Array(buffer);
+        websocket.send(intview);
+
+        var blob = new Blob([buffer]);
+        websocket.send(blob);
+      }
+      websocket.onmessage = function(e) {
+        console.log(e.data);
+        websocket.close();
+      }
+      websocket.onclose = function(e) {
+        console.log('Connection closed.');
+      }
+    </script>
+  </body>
+</html>
