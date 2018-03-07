@@ -1,0 +1,17 @@
+<html>
+<head>
+  <title>WebSocket Demo</title>
+</head>
+<body>
+  <script type="text/javascript">
+    var ws = new WebSocket("ws://127.0.0.1:8000");
+    ws.onerror = function(e) {
+      console.log(e);
+    };
+    ws.onopen = function(e) {
+      console.log('握手成功');
+      ws.send('次碳酸钴');
+    }
+  </script>
+</body>
+</html>
