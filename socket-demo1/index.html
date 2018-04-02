@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>socket.io node.js</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <h1>socket.io</h1>
+    <form action="#" id="form">
+      <textarea id="message" cols="30" rows="10"></textarea>
+      <input type="submit" value="send message" id="submit"/>
+    </form>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://127.0.0.1:3000');
+      var msg = document.getElementById('message');
+      var submit = document.getElementById('submit');
+      submit.onclick = function(e) {
+        socket.emit('msg', {text: msg.value});  // 发生textarea的值给服务器
+        return false;
+      };
+      // 监听msg事件
+      socket.on('msg', function(data) {
+        console.log(data);
+      })
+    </script>
+  </body>
+</html>
