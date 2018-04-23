@@ -8,7 +8,9 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
   <title>Socket.IO chat</title>
   <link rel="stylesheet" href="./index.css" />
+  <link rel="stylesheet" href="./bootstrap/bootstrap.css" />
   <script type="text/javascript" src="./jquery.js"></script>
+  <script type="text/javascript" src="./bootstrap/bootstrap.js"></script>
   <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
@@ -16,10 +18,10 @@
   <h1>用户登录</h1>
   <hr>
   <div class="login">
-    <div class="form-inline">
-      <div class="form-group">
+    <div>
+      <div>
         <label>用户名</label>
-        <input type="text" class="form-control" id="name" placeholder="请输入用户名">
+        <input type="text" id="name" placeholder="请输入用户名">
       </div>
       <button type="button" class="btn btn-info btn-lg" id="loginbutton">登录</button>
     </div>
@@ -32,15 +34,74 @@
     <div class="btn-container">
       <button type="button" class="btn btn-primary send-image" id="imgbutton">发送图片</button>
       <div class="btn btn-primary send-btn" id="sendBtn">发送消息</div>
+      <form action="" style="display: none;" id="resetform">
+        <input type="file" style="display: none" id="imginput" accept="image/*">
+      </form>
     </div>
   </div>
   <div class="usergroup">
     <span class="label-title">在线成员</span>
-    <ul class="list-group" id="list-group">
-      
-    </ul>
+    <ul class="list-group" id="list-group"></ul>
   </div>
 </div>
+
+<!-- 发送模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+      </div>
+      <div class="modal-body">
+          <input type="text" placeholder="say something" class="form-control chatinput" id="inputtoone">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="closesendtoo">关闭
+        </button>
+        <button type="button" class="btn btn-primary" id="sendtoo">
+            发送
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 收到模态框（Modal） -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel1">模态框（Modal）标题</h4>
+      </div>
+      <div class="modal-body shoudao"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="closesendtoo">知道了</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 图片弹窗模态框 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel1">显示图片</h4>
+      </div>
+      <div class="modal-body">
+        <img src="" id="picImg" style="width:98%; margin-left: 10px;"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="closesendtoo">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="showmodal" data-toggle="modal" data-target="#myModal1" style="display: none;"></button>
+<button id="showmodal2" data-toggle="modal" data-target="#myModal2" style="display: none;"></button>
+
 <script src="./index.js"></script>
 </body>
 </html>

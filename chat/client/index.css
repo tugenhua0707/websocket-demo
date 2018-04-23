@@ -19,11 +19,13 @@ html, body {
 }
 .login {
   text-align: center;
+  margin-top: -20px;
 }
 #loginbox label {
   display: inline-block;
   max-width: 100%;
   margin-bottom: 5px;
+  margin-right: 10px;
   font-weight: bold;
 }
 #loginbox button {
@@ -83,6 +85,12 @@ html, body {
 }
 .user-self {
   color: red;
+}
+.user-self-disabled {
+  cursor: not-allowed;
+}
+.other-people {
+  cursor: pointer;
 }
 .list-group {
   position: absolute;

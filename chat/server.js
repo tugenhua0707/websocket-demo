@@ -48,7 +48,8 @@ io.on('connection', (socket) => {
     if (socket.username) {
       users.push({
         username: data.username,
-        message: []
+        message: [],
+        imgUrls: []
       });
       //保存socket
       _sockets[socket.username] = socket;
@@ -65,6 +66,31 @@ io.on('connection', (socket) => {
     // 广播给除自己以外的客户端
     data.userGroup = users;
     socket.broadcast.emit('server message', data);
+  });
+
+  // 监听用户发送图片
+  socket.on('sendImg', (data) => {
+    for (let user of users) {
+      if (user.username === data.username) {
+        user.imgUrls.push(data.imgUrl);
+        //存储后将图片广播给所有浏览器
+        io.emit("receiveImg",data);
+        break;
+      }
+    }
+  });
+
+  // 监听私聊事件
+  socket.on('sendToOne', (data) => {
+    console.log(data);
+    console.log(2233);
+    console.log(users);
+    // 判断该用户是否存在，如果存在就触发receiveToOne事件
+    for (let user of users) {
+      if (user.username === data.to) {
+        _sockets[data.to].emit('receiveToOne',data);
+      }
+    }
   });
 });
 
